@@ -1,0 +1,58 @@
+{
+  "securityScenarios": [
+    {
+      "scenario": "privileged-container",
+      "expected_rule": "K8S-001",
+      "expected_severity": "CRITICAL",
+      "expected_detection": true
+    },
+    {
+      "scenario": "root-container",
+      "expected_rule": "K8S-002",
+      "expected_severity": "HIGH",
+      "expected_detection": true
+    },
+    {
+      "scenario": "privilege-escalation",
+      "expected_rule": "K8S-003",
+      "expected_severity": "HIGH",
+      "expected_detection": true
+    },
+    {
+      "scenario": "missing-resource-limits",
+      "expected_rule": "K8S-004",
+      "expected_severity": "HIGH",
+      "expected_detection": true
+    },
+    {
+      "scenario": "missing-readiness-probe",
+      "expected_rule": "K8S-005",
+      "expected_severity": "MEDIUM",
+      "expected_detection": true
+    },
+    {
+      "scenario": "missing-liveness-probe",
+      "expected_rule": "K8S-006",
+      "expected_severity": "MEDIUM",
+      "expected_detection": true
+    },
+    {
+      "scenario": "latest-image-tag",
+      "expected_rule": "K8S-007",
+      "expected_severity": "HIGH",
+      "expected_detection": true
+    },
+    {
+      "scenario": "excessive-capabilities",
+      "expected_rule": "K8S-008",
+      "expected_severity": "HIGH",
+      "expected_detection": true
+    },
+    {
+      "scenario": "secure-baseline",
+      "expected_rule": null,
+      "expected_severity": null,
+      "expected_detection": false
+    }
+  ]
+}

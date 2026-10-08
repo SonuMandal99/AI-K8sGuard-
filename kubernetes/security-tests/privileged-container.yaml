@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: privileged-container-test
+  namespace: ai-k8sguard
+  labels:
+    app: privileged-container-test
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: privileged-container-test
+
+  template:
+    metadata:
+      labels:
+        app: privileged-container-test
+
+    spec:
+      containers:
+        - name: privileged-container
+          image: nginx:1.27.1
+
+          securityContext:
+            privileged: true

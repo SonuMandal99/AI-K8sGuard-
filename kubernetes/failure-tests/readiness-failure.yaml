@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: readiness-failure-test
+  namespace: ai-k8sguard
+  labels:
+    app: readiness-failure-test
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: readiness-failure-test
+
+  template:
+    metadata:
+      labels:
+        app: readiness-failure-test
+
+    spec:
+      containers:
+        - name: readiness-failure-container
+          image: nginx:1.27.1
+
+          ports:
+            - containerPort: 80
+
+          readinessProbe:
+            httpGet:
+              path: /does-not-exist
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 2
+            failureThreshold: 3

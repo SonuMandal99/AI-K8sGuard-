@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: privilege-escalation-test
+  namespace: ai-k8sguard
+  labels:
+    app: privilege-escalation-test
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: privilege-escalation-test
+
+  template:
+    metadata:
+      labels:
+        app: privilege-escalation-test
+
+    spec:
+      containers:
+        - name: privilege-escalation-container
+          image: nginx:1.27.1
+
+          securityContext:
+            allowPrivilegeEscalation: true
+
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 20

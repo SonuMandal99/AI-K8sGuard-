@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: missing-readiness-probe-test
+  namespace: ai-k8sguard
+  labels:
+    app: missing-readiness-probe-test
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: missing-readiness-probe-test
+
+  template:
+    metadata:
+      labels:
+        app: missing-readiness-probe-test
+
+    spec:
+      containers:
+        - name: missing-readiness-probe-container
+          image: nginx:1.27.1
+
+          securityContext:
+            privileged: false
+            runAsNonRoot: true
+            runAsUser: 1000
+            allowPrivilegeEscalation: false
+
+            capabilities:
+              drop:
+                - ALL
+
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 20

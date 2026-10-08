@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: root-container-test
+  namespace: ai-k8sguard
+  labels:
+    app: root-container-test
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: root-container-test
+
+  template:
+    metadata:
+      labels:
+        app: root-container-test
+
+    spec:
+      containers:
+        - name: root-container
+          image: nginx:1.27.1
+
+          securityContext:
+            runAsUser: 0

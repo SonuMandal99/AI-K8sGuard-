@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ai-k8sguard
+  labels:
+    app.kubernetes.io/name: ai-k8sguard
+    app.kubernetes.io/part-of: ai-k8sguard

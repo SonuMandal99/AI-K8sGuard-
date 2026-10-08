@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: excessive-capabilities-test
+  namespace: ai-k8sguard
+  labels:
+    app: excessive-capabilities-test
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: excessive-capabilities-test
+
+  template:
+    metadata:
+      labels:
+        app: excessive-capabilities-test
+
+    spec:
+      containers:
+        - name: excessive-capabilities-container
+          image: nginx:1.27.1
+
+          securityContext:
+            capabilities:
+              add:
+                - SYS_ADMIN
+
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 20

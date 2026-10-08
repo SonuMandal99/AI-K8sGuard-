@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: missing-liveness-probe-test
+  namespace: ai-k8sguard
+  labels:
+    app: missing-liveness-probe-test
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: missing-liveness-probe-test
+
+  template:
+    metadata:
+      labels:
+        app: missing-liveness-probe-test
+
+    spec:
+      containers:
+        - name: missing-liveness-probe-container
+          image: nginx:1.27.1
+
+          securityContext:
+            privileged: false
+            runAsNonRoot: true
+            runAsUser: 1000
+            allowPrivilegeEscalation: false
+
+            capabilities:
+              drop:
+                - ALL
+
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10

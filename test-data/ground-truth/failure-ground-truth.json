@@ -1,0 +1,34 @@
+{
+  "failureScenarios": [
+    {
+      "scenario": "crashloop",
+      "failure_id": "F-001",
+      "expected_failure": "CrashLoopBackOff",
+      "expected_cause": "Container repeatedly terminates after starting"
+    },
+    {
+      "scenario": "imagepull",
+      "failure_id": "F-002",
+      "expected_failure": "ImagePullBackOff",
+      "expected_cause": "Referenced container image cannot be pulled"
+    },
+    {
+      "scenario": "missing-secret",
+      "failure_id": "F-003",
+      "expected_failure": "Pod cannot start",
+      "expected_cause": "Referenced Secret does not exist"
+    },
+    {
+      "scenario": "missing-configmap",
+      "failure_id": "F-004",
+      "expected_failure": "Pod cannot start",
+      "expected_cause": "Referenced ConfigMap does not exist"
+    },
+    {
+      "scenario": "readiness-failure",
+      "failure_id": "F-005",
+      "expected_failure": "Pod remains NotReady",
+      "expected_cause": "Readiness probe repeatedly fails"
+    }
+  ]
+}

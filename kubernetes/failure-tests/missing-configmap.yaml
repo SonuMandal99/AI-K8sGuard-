@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: missing-configmap-test
+  namespace: ai-k8sguard
+  labels:
+    app: missing-configmap-test
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: missing-configmap-test
+
+  template:
+    metadata:
+      labels:
+        app: missing-configmap-test
+
+    spec:
+      containers:
+        - name: missing-configmap-container
+          image: nginx:1.27.1
+
+          env:
+            - name: APP_CONFIG
+              valueFrom:
+                configMapKeyRef:
+                  name: ai-k8sguard-missing-configmap
+                  key: config

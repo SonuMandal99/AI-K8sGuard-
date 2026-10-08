@@ -1,0 +1,10 @@
+{
+  "description": "This Kubernetes security research tool provides users with a comprehensive dashboard for monitoring security posture, analyzing risks, and diagnosing vulnerabilities in real-time.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
